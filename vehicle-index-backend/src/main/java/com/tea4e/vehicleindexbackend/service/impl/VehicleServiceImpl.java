@@ -7,6 +7,8 @@ import com.tea4e.vehicleindexbackend.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class VehicleServiceImpl implements VehicleService {
 
@@ -19,7 +21,9 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Override
     public void createVehicle(CreateVehicleRequest request) {
+
         GroundVehicle entity = request2Entity(request);
+        entity.setId(UUID.randomUUID().toString());
         GroundVehicle result = groundRepo.save(entity);
 
     }
