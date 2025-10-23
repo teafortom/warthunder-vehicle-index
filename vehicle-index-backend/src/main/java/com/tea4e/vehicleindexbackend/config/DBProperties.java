@@ -3,7 +3,7 @@ package com.tea4e.vehicleindexbackend.config;
 
 import org.springframework.context.annotation.PropertySource;
 
-@PropertySource(value = "/application.properties")
+@PropertySource(value = "/application.yml")
 public class DBProperties {
     String driver;
     String username;

@@ -1,0 +1,15 @@
+spring:
+    application:
+        name: vehicle-index-backend
+
+database:
+    url: ENC(pHLcvmeD9QIQqeUbRn34DFUfmjfF9mykH0ECUC+oQxIFkImzbf1GnBnO+LTyc0okX20WA0T2hyDJn6c4qxh9FoCjojpgYsEkxiDBAgs2Xjg=)
+    username: ENC(uI/Aiqxd7i1dQjJTAxZ65Q==)
+    password: ENC(ixMUCoo6x9BBRKMDqFwEWPL1VI+Wh5hge0Arj0+fE/M=)
+    driver: xxx
+
+
+jasypt:
+    encryptor:
+        algorithm: PBEWithMD5AndDES
+        iv-generator-classname: org.jasypt.iv.NoIvGenerator
