@@ -23,13 +23,13 @@ public class VehicleServiceImpl implements VehicleService {
     public void createVehicle(CreateVehicleRequest request) {
 
         GroundVehicle entity = request2Entity(request);
-        entity.setId(UUID.randomUUID().toString());
         GroundVehicle result = groundRepo.save(entity);
 
     }
 
     private GroundVehicle request2Entity(CreateVehicleRequest request){
         return GroundVehicle.builder()
+                .id(request.getId())
                 .name(request.getName())
                 .build();
     }

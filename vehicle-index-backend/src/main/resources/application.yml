@@ -1,13 +1,19 @@
 spring:
     application:
         name: vehicle-index-backend
-
-database:
-    url: ENC(pHLcvmeD9QIQqeUbRn34DFUfmjfF9mykH0ECUC+oQxIFkImzbf1GnBnO+LTyc0okX20WA0T2hyDJn6c4qxh9FoCjojpgYsEkxiDBAgs2Xjg=)
-    username: ENC(uI/Aiqxd7i1dQjJTAxZ65Q==)
-    password: ENC(ixMUCoo6x9BBRKMDqFwEWPL1VI+Wh5hge0Arj0+fE/M=)
-    driver: xxx
-
+    datasource:
+        url: ENC(QpWhOx1mhRxyGQuMZfgP4iL3QWvn0hYN+C7/HuZxkVy0HEG1dwxfaWzblmNJsWOLvKF4Vt3MFwAc5DSaT4qYibIGcJD5vLISUuVLyS9nCz5nC5O1JeAARnR/Q9wsA6J0c07P9bjk5dQ=)
+        username: ENC(uI/Aiqxd7i1dQjJTAxZ65Q==)
+        password: ENC(QALXGxG5g3hdRa54iLQXQQrwyZvgvnxGjPmlbXnALPM=)
+        driver-class-name: com.mysql.cj.jdbc.Driver
+    jpa:
+        show-sql: true  #display the actual query ran in the console
+        properties:
+            hibernate:
+                format_sql: true
+                dialect: org.hibernate.dialect.MySQL8Dialect
+                hbm2ddl:
+                    auto: create
 
 jasypt:
     encryptor:

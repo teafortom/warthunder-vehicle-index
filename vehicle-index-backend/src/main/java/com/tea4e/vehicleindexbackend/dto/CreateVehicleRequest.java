@@ -6,6 +6,7 @@ import lombok.Data;
 @Data
 @Builder
 public class CreateVehicleRequest {
+    private String id;
     private String name;
 
 }
