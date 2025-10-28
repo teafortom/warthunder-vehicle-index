@@ -1,0 +1,25 @@
+spring:
+    application:
+        name: vehicle-index-backend
+    datasource:
+        url: jdbc:mysql://localhost:3306/wt_vehicle
+        username: root
+        password: password
+        driver-class-name: com.mysql.cj.jdbc.Driver
+    jpa:
+        show-sql: true  #display the actual query ran in the console
+        properties:
+            hibernate:
+                jdbc:
+                    batch_size: 50                  # Group up to 50 inserts
+                order_inserts: true             # Required for batching
+                generate_statistics: true
+                format_sql: true
+                dialect: org.hibernate.dialect.MySQL8Dialect
+                hbm2ddl:
+                    auto: update
+
+jasypt:
+    encryptor:
+        algorithm: PBEWithMD5AndDES
+        iv-generator-classname: org.jasypt.iv.NoIvGenerator
