@@ -51,6 +51,7 @@ public class VehicleServiceImpl implements VehicleService {
         return GroundVehicle.builder()
                 .id(dto.getId())
                 .name(dto.getName())
+                .country(dto.getCountry())
                 .build();
     }
 

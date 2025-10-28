@@ -11,4 +11,5 @@ import lombok.NoArgsConstructor;
 public class VehicleDTO {
     private String id;
     private String name;
+    private String country;
 }

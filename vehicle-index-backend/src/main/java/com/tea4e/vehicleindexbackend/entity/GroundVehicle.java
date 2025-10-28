@@ -16,4 +16,5 @@ public class GroundVehicle {
     @Id
     private String id;
     private String name;
+    private String country;
 }
