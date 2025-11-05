@@ -92,7 +92,14 @@ for specific_vehicle_element in vehicle_rows:
     unit_id = specific_vehicle_element.get_attribute_list("data-ulist-id")[0]
     unit_name = specific_vehicle_element.find("span").getText()
     unit_country = specific_vehicle_element.find(class_="wt-ulist_unit-country").get_attribute_list("data-value")[0]
+    unit_rank = specific_vehicle_element.find_all("td")[3].get_attribute_list("data-value")[0]
+    unit_br = specific_vehicle_element.find(class_="br").get_text()
+    unit_price = specific_vehicle_element.find_all("td")[5].get_attribute_list("data-value")[0]
 
+    print(unit_name)
+    print(unit_rank)
+    print(unit_br)
+    print(unit_price)
 
     # print(unit_id)
     # print(unit_name)
