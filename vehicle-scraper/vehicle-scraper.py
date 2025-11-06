@@ -116,7 +116,10 @@ for specific_vehicle_element in vehicle_rows:
     batch.append({
             "id": unit_id,
             "name": unit_name,
-            "country": unit_country
+            "country": unit_country,
+            "battle_rating": unit_br,
+            "rank":unit_rank,
+            "price":unit_price
         })
     
     print(f"name = {unit_name}, id = {unit_id}")

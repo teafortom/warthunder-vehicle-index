@@ -1,5 +1,6 @@
 package com.tea4e.vehicleindexbackend.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
@@ -17,4 +18,9 @@ public class GroundVehicle {
     private String id;
     private String name;
     private String country;
+    @Column(name="battle_rating")
+    private Float battleRating;
+    @Column(name="`rank`")
+    private Integer rank;
+    private Integer price;
 }

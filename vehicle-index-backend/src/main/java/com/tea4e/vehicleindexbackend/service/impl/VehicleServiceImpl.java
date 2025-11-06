@@ -52,6 +52,9 @@ public class VehicleServiceImpl implements VehicleService {
                 .id(dto.getId())
                 .name(dto.getName())
                 .country(dto.getCountry())
+                .battleRating(dto.getBattleRating())
+                .price(dto.getPrice())
+                .rank(dto.getRank())
                 .build();
     }
 
