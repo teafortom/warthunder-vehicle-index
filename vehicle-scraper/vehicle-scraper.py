@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 from typing import Dict, Any, List
 import time
 import re
+from decimal import Decimal, InvalidOperation
 
 
 from selenium import webdriver
@@ -12,7 +13,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 
 BASE_URL = "https://wiki.warthunder.com"
-GROUND_PREFIX = "/ground?v=l"
+GROUND_PREFIX = "/ground?v=l&"
 AIR_PREFIX="/air?v=l"
 
 HEADERS = {
@@ -22,23 +23,23 @@ HEADERS = {
 
 
 
-def put_vehicle(URL: str , data: Dict[str, Any]) -> None:
-    try:
-        response = requests.put(
-            url=URL,
-            headers=HEADERS,
-            json=data,          # <-- automatically serializes dict to JSON
-            timeout=10
-        )
-    except requests.exceptions.HTTPError as http_err:
-        print(f"HTTP error occurred: {http_err}")
-        print("Response body:", response.text)
-    except requests.exceptions.ConnectionError:
-        print("Failed to connect to the server. Check URL/host.")
-    except requests.exceptions.Timeout:
-        print("Request timed out.")
-    except requests.exceptions.RequestException as err:
-        print(f"Other error: {err}")
+# def put_vehicle(URL: str , data: Dict[str, Any]) -> None:
+#     try:
+#         response = requests.put(
+#             url=URL,
+#             headers=HEADERS,
+#             json=data,          # <-- automatically serializes dict to JSON
+#             timeout=10
+#         )
+#     except requests.exceptions.HTTPError as http_err:
+#         print(f"HTTP error occurred: {http_err}")
+#         print("Response body:", response.text)
+#     except requests.exceptions.ConnectionError:
+#         print("Failed to connect to the server. Check URL/host.")
+#     except requests.exceptions.Timeout:
+#         print("Request timed out.")
+#     except requests.exceptions.RequestException as err:
+#         print(f"Other error: {err}")
 
 def post_vehicle_batch(URL: str , data: List[Dict]) -> None:
 
@@ -62,6 +63,17 @@ def post_vehicle_batch(URL: str , data: List[Dict]) -> None:
     except requests.exceptions.RequestException as err:
         print(f"Other error: {err}")
 
+# Source - https://stackoverflow.com/q
+# Posted by Daniel Goldberg, modified by community. See post 'Timeline' for change history
+# Retrieved 2025-11-07, License - CC BY-SA 4.0
+
+def is_number(s):
+    try:
+        float(s)
+        return True
+    except ValueError:
+        return False
+
 
 driver = webdriver.Chrome()
 driver.get(BASE_URL + GROUND_PREFIX)
@@ -82,12 +94,14 @@ batch = []
 
 JAVA_API_URL = "http://localhost:8080/api/v1/vehicle/batch"
 
+i= 0
 for specific_vehicle_element in vehicle_rows:
     if len(batch) >= 50:
         post_vehicle_batch(JAVA_API_URL, batch)
         batch.clear()
-        time.sleep(3)
-    print(specific_vehicle_element)
+        time.sleep(1)
+    i += 1
+    print(i)
     
     unit_id = specific_vehicle_element.get_attribute_list("data-ulist-id")[0]
     unit_name = specific_vehicle_element.find("span").getText()
@@ -95,11 +109,27 @@ for specific_vehicle_element in vehicle_rows:
     unit_rank = specific_vehicle_element.find_all("td")[3].get_attribute_list("data-value")[0]
     unit_br = specific_vehicle_element.find(class_="br").get_text()
     unit_price = specific_vehicle_element.find_all("td")[5].get_attribute_list("data-value")[0]
+    unit_role = specific_vehicle_element.find_all("span")[1].getText();
+    # print(unit_role)
+    #wt-unit-list > div > table > tbody > tr:nth-child(12) > td:nth-child(2) > span
 
-    print(unit_name)
-    print(unit_rank)
-    print(unit_br)
-    print(unit_price)
+    if not is_number(unit_rank):
+        print(unit_id)
+        unit_rank = -1
+
+    if not is_number(unit_br):
+        print(unit_id)
+        unit_br = -1
+
+    if not is_number(unit_price):
+        print(unit_id)
+        unit_br = -1
+
+    # if (unit_rank == 8):
+    #     print(unit_name)
+    #     print(unit_rank)
+    #     print(unit_br)
+    # print(unit_price)
 
     # print(unit_id)
     # print(unit_name)
@@ -119,10 +149,11 @@ for specific_vehicle_element in vehicle_rows:
             "country": unit_country,
             "battle_rating": unit_br,
             "rank":unit_rank,
-            "price":unit_price
+            "price":unit_price,
+            "role": unit_role
         })
     
-    print(f"name = {unit_name}, id = {unit_id}")
+    print(f"name = {unit_name}, id = {unit_id}, rank = {unit_rank}")
 
 
 if batch:
