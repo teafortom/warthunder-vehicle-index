@@ -55,6 +55,7 @@ public class VehicleServiceImpl implements VehicleService {
                 .battleRating(dto.getBattleRating())
                 .price(dto.getPrice())
                 .rank(dto.getRank())
+                .role(dto.getRole())
                 .build();
     }
 

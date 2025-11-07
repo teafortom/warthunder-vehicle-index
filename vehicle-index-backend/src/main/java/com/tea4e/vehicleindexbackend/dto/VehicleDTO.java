@@ -17,4 +17,5 @@ public class VehicleDTO {
     private float battleRating;
     private int rank;
     private int price;
+    private String role;
 }

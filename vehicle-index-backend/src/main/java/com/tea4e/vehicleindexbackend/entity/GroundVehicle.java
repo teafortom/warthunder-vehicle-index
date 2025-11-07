@@ -23,4 +23,6 @@ public class GroundVehicle {
     @Column(name="`rank`")
     private Integer rank;
     private Integer price;
+    @Column(name="`role`")
+    private String role;
 }
